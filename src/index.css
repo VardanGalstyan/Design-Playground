@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --color-prime-green: #74d99f;
+  --color-neat-900: #202529;
+  --color-neat-700: #495056;
+  --color-neat-500: #858d96;
+  --color-neat-400: #adb5bd;
+
+  --font-bebas: "Bebas Neue", "sans-serif";
+  --font-anton: "Anton", "sans-serif";
+}
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.anton-regular {
+  font-family: "Anton", serif;
+  font-weight: 400;
+  font-style: normal;
+}
