@@ -1,56 +1,51 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import Hero from "./components/Hero";
+import clsx from "clsx";
 
 function App() {
-  const [position, setPosition] = useState({ x: -1, y: 0 });
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!sectionRef.current) return;
-
-      const rect = sectionRef.current.getBoundingClientRect();
-      const isInside =
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom;
-
-      if (isInside) {
-        setPosition({ x: e.clientX, y: e.clientY });
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  const [open, toOpen] = useState(false);
 
   return (
     <>
-      <section
-        ref={sectionRef}
-        className="h-screen overflow-hidden bg-neat-900 contrast-80 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)]  bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10"
+      <Hero />
+      <div
+        onClick={() => toOpen(!open)}
+        className="flex flex-col cursor-pointer items-end w-24 group gap-1 absolute top-10 right-10"
       >
-        <h1 className="font-anton inline-flex items-center justify-center w-full h-full drop-shadow-[0.5px_0.5px_1px_red] mix-blend-difference z-20 text-neat-900/90 text-[12rem] uppercase">
-          Fashion
-        </h1>
-        <div className="inline-flex h-full w-full items-center justify-center">
-          <div className="">
-            <img
-              className="absolute object-cover inset-0 w-full h-full mix-blend-difference"
-              src="https://tailwindcss.com/_next/static/media/filters.debd0951.png"
-              alt="cover-image"
-            />
-          </div>
-          <div
-            style={{
-              transform: `translate(${position.x}px, ${position.y}px)`,
-            }}
-            className="absolute size-32 -left-[100vw] -top-[100vh] w-[200vw] h-[200vh] backdrop-grayscale-100 transition-all duration-300 ease-linear [mask-image:radial-gradient(circle_100px,transparent_40%,#000_100%)]"
-          ></div>
+        <span className="h-1.5 w-12 group-hover:w-16 rounded-full  bg-linear-to-r to-violet-200 mix-blend-difference from-5% animation-all duration-600"></span>
+        <span className="h-1.5 w-12 group-hover:w-16 rounded-full  bg-linear-to-r to-violet-200 mix-blend-difference from-35% animation-all duration-200"></span>
+        <span className="h-1.5 w-12 group-hover:w-16 rounded-full  bg-linear-to-r to-violet-200 mix-blend-difference from-20% animation-all duration-300"></span>
+      </div>
+      <div
+        className={clsx(
+          open
+            ? "right-[15%] text-violet-200 backdrop-blur-[2px]"
+            : "right-[15%] text-transparent backdrop-blur-none",
+          "absolute left-2 top-5 uppercase hover:text-blue-300 ease-in-out animation-all duration-300 pl-6 p-4 text-4xl mix-blend-difference"
+        )}
+      >
+        <nav>
+          <ul className="flex gap-8 font-poiret w-fit hover:backdrop-blur-md">
+            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
+              About
+            </li>
+            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
+              Gallery
+            </li>
+            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
+              Design Week
+            </li>
+            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
+              Events
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div className="h-screen">
+        <div className="relative h-full w-full bg-neat-900">
+          <div className="absolute h-full w-full inset-0 [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px]"></div>
         </div>
-      </section>
+      </div>
     </>
   );
 }
