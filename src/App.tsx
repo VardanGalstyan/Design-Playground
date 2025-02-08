@@ -32,7 +32,7 @@ function App() {
       threshold: 0.6,
     };
 
-    const observerCallback = (entries) => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
@@ -40,18 +40,20 @@ function App() {
       });
     };
 
+    const sections = sectionRefs.current;
+
     const observer = new IntersectionObserver(
       observerCallback,
       observerOptions
     );
 
-    sectionRefs.current.forEach((section) => {
+    sections.forEach((section) => {
       if (section) observer.observe(section);
     });
 
     return () => {
       if (observer) {
-        sectionRefs.current.forEach((section) => {
+        sections.forEach((section) => {
           if (section) observer.unobserve(section);
         });
       }
