@@ -1,52 +1,104 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Header from "./components/Header";
 import Hero from "./components/Hero";
-import clsx from "clsx";
+
+const sections = [
+  { id: "hero", title: "Hero" },
+  { id: "sectionOne", title: "Section 1" },
+  { id: "sectionTwo", title: "Section 2" },
+];
 
 function App() {
-  const [open, toOpen] = useState(false);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeSection, setActiveSection] = useState(sections[0].id);
+
+  // Scroll to the next section on button click
+  const handleSeeMoreClick = () => {
+    const nextSection = sectionRefs.current[1]; // The next section after Hero
+    if (nextSection) {
+      nextSection.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!sectionRefs.current.length) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.6,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    sectionRefs.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      if (observer) {
+        sectionRefs.current.forEach((section) => {
+          if (section) observer.unobserve(section);
+        });
+      }
+    };
+  }, []);
 
   return (
-    <>
-      <Hero />
+    <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
+      {/* Side Navigation */}
+      <nav className="absolute right-4 top-0 bottom-0 z-20 flex flex-col gap-4 mix-blend-difference items-center justify-center">
+        {sections.map((section) => (
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            className={`size-4 rounded-full ${
+              activeSection === section.id
+                ? "bg-yellow-400 text-black"
+                : "bg-neat-900"
+            }`}
+          ></a>
+        ))}
+      </nav>
+
+      {/* Sections */}
       <div
-        onClick={() => toOpen(!open)}
-        className="flex flex-col cursor-pointer items-end w-24 group gap-1 absolute top-10 right-10"
+        id="hero"
+        ref={(el) => (sectionRefs.current[0] = el)}
+        className="snap-center w-full"
       >
-        <span className="h-1.5 w-12 group-hover:w-16 rounded-full  bg-linear-to-r to-violet-200 mix-blend-difference from-5% animation-all duration-600"></span>
-        <span className="h-1.5 w-12 group-hover:w-16 rounded-full  bg-linear-to-r to-violet-200 mix-blend-difference from-35% animation-all duration-200"></span>
-        <span className="h-1.5 w-12 group-hover:w-16 rounded-full  bg-linear-to-r to-violet-200 mix-blend-difference from-20% animation-all duration-300"></span>
+        <Hero handleSeeMoreClick={handleSeeMoreClick} />
+      </div>
+      <Header />
+      <div
+        id="sectionOne"
+        ref={(el) => (sectionRefs.current[1] = el)}
+        className="h-screen w-full text-white font-poiret uppercase flex justify-center items-center text-3xl bg-neat-900 snap-center border-b"
+      >
+        Welcome to Section 1
       </div>
       <div
-        className={clsx(
-          open
-            ? "right-[15%] text-violet-200 backdrop-blur-[2px]"
-            : "right-[15%] text-transparent backdrop-blur-none",
-          "absolute left-2 top-5 uppercase hover:text-blue-300 ease-in-out animation-all duration-300 pl-6 p-4 text-4xl mix-blend-difference"
-        )}
+        id="sectionTwo"
+        ref={(el) => (sectionRefs.current[2] = el)}
+        className="h-screen w-full uppercase bg-neat-900 snap-center text-white justify-center items-center font-poiret flex text-3xl"
       >
-        <nav>
-          <ul className="flex gap-8 font-poiret w-fit hover:backdrop-blur-md">
-            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
-              About
-            </li>
-            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
-              Gallery
-            </li>
-            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
-              Design Week
-            </li>
-            <li className="cursor-pointer hover:text-sky-400 animation-all duration-300">
-              Events
-            </li>
-          </ul>
-        </nav>
+        Welcome to Section 2
       </div>
-      <div className="h-screen">
-        <div className="relative h-full w-full bg-neat-900">
-          <div className="absolute h-full w-full inset-0 [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)] bg-[size:10px_10px]"></div>
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 

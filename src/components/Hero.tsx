@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const Hero = () => {
+const Hero = ({ handleSeeMoreClick }: { handleSeeMoreClick: () => void }) => {
   const [position, setPosition] = useState({ x: -1, y: 0 });
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -29,11 +29,29 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="h-screen overflow-hidden bg-neat-900 contrast-80 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)]  bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10"
+      className="relative h-screen overflow-hidden bg-neat-900 contrast-80 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)]  bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10"
     >
       <h1 className="font-anton inline-flex items-center justify-center w-full h-full drop-shadow-[0.5px_0.5px_1px_red] mix-blend-difference z-20 text-neat-900/90 text-[12rem] uppercase">
         Fashion
       </h1>
+      <div className="items-center cursor-pointer group mix-blend-difference flex-col top-[80%] left-0 w-full text-center absolute z-10 inline-flex justify-center">
+        <span
+          onClick={handleSeeMoreClick}
+          className="text-neat-700/90 group-hover:text-yellow-400/80 font-poiret text-3xl transition-colors duration-700"
+        >
+          SEE MORE
+        </span>
+        <svg
+          className="size-4 fill-yellow-400 group-hover:fill-yellow-400/80 transition-colors duration-700"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 266.77"
+        >
+          <path
+            fill-rule="nonzero"
+            d="M493.12 3.22c4.3-4.27 11.3-4.3 15.62-.04a10.85 10.85 0 0 1 .05 15.46L263.83 263.55c-4.3 4.28-11.3 4.3-15.63.05L3.21 18.64a10.85 10.85 0 0 1 .05-15.46c4.32-4.26 11.32-4.23 15.62.04L255.99 240.3 493.12 3.22z"
+          />
+        </svg>
+      </div>
       <div className="inline-flex h-full w-full items-center justify-center">
         <img
           className="absolute object-cover inset-0 w-full h-full mix-blend-difference"
