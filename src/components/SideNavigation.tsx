@@ -21,7 +21,7 @@ const SideNavigation = ({ activeSection }: { activeSection: string }) => {
           onClick={() => handleClick(section.id)}
           key={section.id}
           className={clsx(
-            "size-4 rounded-full cursor-pointer",
+            "size-3 md:size-4 rounded-full cursor-pointer",
             activeSection === section.id
               ? "bg-yellow-400"
               : "bg-neat-900 hover:bg-neat-700"

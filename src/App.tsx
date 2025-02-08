@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useRef } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -35,14 +36,20 @@ function App() {
       <div
         id="sectionOne"
         ref={(el) => (sectionRefs.current[1] = el)}
-        className="h-screen w-full text-white font-poiret uppercase flex justify-center items-center text-3xl bg-neat-900 snap-center border-b"
+        className={clsx(
+          "h-screen w-full flex justify-center items-center  bg-neat-900 snap-center",
+          "text-white font-poiret uppercase text-xl md:text-3xl"
+        )}
       >
         Welcome to Section 1
       </div>
       <div
         id="sectionTwo"
         ref={(el) => (sectionRefs.current[2] = el)}
-        className="h-screen w-full uppercase bg-neat-900 snap-center text-white justify-center items-center font-poiret flex text-3xl"
+        className={clsx(
+          "h-screen w-full  bg-neat-900 snap-center  justify-center items-center  flex ",
+          "text-xl md:text-3xl uppercase text-white font-poiret"
+        )}
       >
         Welcome to Section 2
       </div>

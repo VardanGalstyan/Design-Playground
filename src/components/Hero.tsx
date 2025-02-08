@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 
 const Hero = ({ handleSeeMoreClick }: { handleSeeMoreClick: () => void }) => {
@@ -31,15 +32,23 @@ const Hero = ({ handleSeeMoreClick }: { handleSeeMoreClick: () => void }) => {
       ref={sectionRef}
       className="relative h-screen overflow-hidden bg-neat-900 contrast-80 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)]  bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10"
     >
-      <h1 className="font-anton inline-flex items-center justify-center w-full h-full drop-shadow-[0.5px_0.5px_1px_red] mix-blend-difference z-20 text-neat-900/90 text-[12rem] uppercase">
+      <h1
+        className={clsx(
+          "inline-flex items-center justify-center w-full h-full drop-shadow-[0.5px_0.5px_1px_red] mix-blend-difference z-20 ",
+          "font-anton text-neat-900/90 text-7xl md:text-[12rem] uppercase"
+        )}
+      >
         Fashion
       </h1>
       <div className="items-center cursor-pointer group mix-blend-difference flex-col top-[80%] left-0 w-full text-center absolute z-10 inline-flex justify-center">
         <span
           onClick={handleSeeMoreClick}
-          className="text-neat-700/90 group-hover:text-yellow-400/80 font-poiret text-3xl transition-colors duration-700"
+          className={clsx(
+            " group-hover:text-yellow-400/80  transition-colors duration-700",
+            "font-poiret text-xl md:text-3xl uppercase text-neat-700/90"
+          )}
         >
-          SEE MORE
+          Showroom
         </span>
         <svg
           className="size-4 fill-yellow-400 group-hover:fill-yellow-400/80 transition-colors duration-700"
@@ -54,7 +63,7 @@ const Hero = ({ handleSeeMoreClick }: { handleSeeMoreClick: () => void }) => {
       </div>
       <div className="inline-flex h-full w-full items-center justify-center">
         <img
-          className="absolute object-cover inset-0 w-full h-full mix-blend-difference"
+          className="absolute object-cover inset-0 w-full h-full mix-blend-difference object-right"
           src="https://tailwindcss.com/_next/static/media/filters.debd0951.png"
           alt="cover-image"
         />
