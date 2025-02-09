@@ -49,10 +49,7 @@ function App() {
       </div>
       <div
         id="sectionTwo"
-        ref={(el) => {
-          sectionRefs.current[2] = el;
-          console.log(el);
-        }}
+        ref={(el) => (sectionRefs.current[2] = el)}
         className={clsx(
           "h-screen w-full  bg-neat-900 snap-center  justify-center items-center  flex ",
           "text-xl md:text-3xl uppercase text-white font-poiret"

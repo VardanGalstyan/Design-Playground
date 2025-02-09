@@ -69,6 +69,7 @@ const Hero = ({ handleSeeMoreClick }: { handleSeeMoreClick: () => void }) => {
           className="absolute object-cover inset-0 w-full h-full mix-blend-difference object-right"
           src="https://tailwindcss.com/_next/static/media/filters.debd0951.png"
           alt="cover-image"
+          loading="eager"
         />
         <div
           style={{
