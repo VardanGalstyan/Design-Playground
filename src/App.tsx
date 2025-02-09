@@ -4,6 +4,10 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import SideNavigation from "./components/SideNavigation";
 import useObserver from "./hooks/useObserver";
+import { elementScrollIntoViewPolyfill } from "seamless-scroll-polyfill";
+
+// The Polyfill ensures smooth scroll works on safari.
+elementScrollIntoViewPolyfill();
 
 function App() {
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -22,7 +26,7 @@ function App() {
   return (
     <div className="snap-y snap-mandatory overflow-y-scroll h-screen">
       {/* Side Navigation */}
-      <SideNavigation activeSection={activeSection} />
+      <SideNavigation sections={sectionRefs} activeSection={activeSection} />
 
       {/* Sections */}
       <div
@@ -45,7 +49,10 @@ function App() {
       </div>
       <div
         id="sectionTwo"
-        ref={(el) => (sectionRefs.current[2] = el)}
+        ref={(el) => {
+          sectionRefs.current[2] = el;
+          console.log(el);
+        }}
         className={clsx(
           "h-screen w-full  bg-neat-900 snap-center  justify-center items-center  flex ",
           "text-xl md:text-3xl uppercase text-white font-poiret"

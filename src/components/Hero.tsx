@@ -32,14 +32,17 @@ const Hero = ({ handleSeeMoreClick }: { handleSeeMoreClick: () => void }) => {
       ref={sectionRef}
       className="relative h-screen overflow-hidden bg-neat-900 contrast-80 bg-[image:radial-gradient(var(--pattern-fg)_1px,_transparent_0)]  bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-gray-950)]/5 dark:[--pattern-fg:var(--color-white)]/10"
     >
-      <h1
-        className={clsx(
-          "inline-flex items-center justify-center w-full h-full drop-shadow-[0.5px_0.5px_1px_red] mix-blend-difference z-20 ",
-          "font-anton text-neat-900/90 text-7xl md:text-[12rem] uppercase"
-        )}
-      >
-        Fashion
-      </h1>
+      <div className="relative mix-blend-difference inline-flex items-center justify-center h-full w-full">
+        <h1
+          className={clsx(
+            "drop-shadow-[0.5px_0.5px_1px_red]  z-20 ",
+            "font-anton text-neat-900/90 text-7xl md:text-[12rem] uppercase"
+          )}
+        >
+          Fashion
+        </h1>
+      </div>
+
       <div className="items-center cursor-pointer group mix-blend-difference flex-col top-[80%] left-0 w-full text-center absolute z-10 inline-flex justify-center">
         <span
           onClick={handleSeeMoreClick}
